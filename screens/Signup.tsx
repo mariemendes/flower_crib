@@ -6,7 +6,6 @@ import CustomTextInput from '../components/CustomTextInput';
 import DatePickerInput from '../components/DatePickerInput';
 import { Formik } from 'formik';
 import { StatusBar } from 'expo-status-bar';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Signup = () => {
   const [hidePassword, setHidePassword] = useState(true);

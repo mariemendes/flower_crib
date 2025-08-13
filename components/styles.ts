@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
   button: {
     // padding: 15,
     backgroundColor: Colors.brand,
+    // minWidth: 250,
     justifyContent: 'center',
     borderRadius: 5,
     height: 60,
@@ -132,5 +133,32 @@ export const styles = StyleSheet.create({
   textLinkContent: {
     color: Colors.brand,
     fontSize: 15
+  },
+  welcomeContainer: {
+    padding: 25,
+    paddingTop: 10,
+    justifyContent: 'center',
+    width: '100%',
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    margin: 'auto',
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: Colors.secondary,
+    marginBottom: 10,
+    marginTop: 10
+  },
+  welcomeImage: {
+    height: '50%',
+    minWidth: '100%'
+  },
+  pageTitleWelcome: {
+    fontSize: 35
+  },
+  pageSubTitleWelcome: {
+    marginBottom: 5,
+    fontWeight: 'normal'
   }
 });
