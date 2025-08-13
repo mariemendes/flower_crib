@@ -22,6 +22,12 @@ export const styles = StyleSheet.create({
     paddingRight: 30,
     backgroundColor: Colors.primary,
   },
+  scrollContainer: {
+    flex: 1,
+    width: '100%',
+    // alignItems: 'center', 
+    paddingBottom: 40 
+  },
   innerContainer: {
     flex: 1,
     width: '100%',
@@ -77,15 +83,54 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   button: {
-    padding: 15,
+    // padding: 15,
     backgroundColor: Colors.brand,
     justifyContent: 'center',
     borderRadius: 5,
     height: 60,
     marginVertical: 5,
+    alignItems: 'center',
+  },
+  googleButton: {
+    backgroundColor: Colors.green,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   buttonText: {
     color: Colors.primary,
     fontSize: 16,
   },
+  googleText: {
+    paddingLeft: 5,
+  },
+  msgBox: {
+    textAlign: 'center',
+    fontSize: 13,
+  },
+  line: {
+    height: 1,
+    width: '100%',
+    backgroundColor:Colors.darkLight,
+    marginVertical: 10,
+  },
+  extraView: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+  extraText: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    color: Colors.tertiary,
+    fontSize: 15,
+  },
+  textLink: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textLinkContent: {
+    color: Colors.brand,
+    fontSize: 15
+  }
 });

@@ -1,38 +1,11 @@
-import React, { useState, ComponentProps } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image } from 'react-native';
 import { styles, Colors } from '../components/styles';
-
-
-//formik
+import CustomButton from '../components/CustomButton';
+import CustomTextInput from '../components/CustomTextInput';
 import { Formik } from 'formik';
-
-//icons
 import Ionicons from '@expo/vector-icons/Ionicons';
-
-
-// types
-type IoniconName = ComponentProps<typeof Ionicons>['name'];
-
-type MyTextInputBaseProps = {
-  label: string;
-  icon: IoniconName;
-  [x: string]: any;
-};
-
-type MyTextInputPasswordProps = MyTextInputBaseProps & {
-  isPassword: true;
-  hidePassword: boolean;
-  setHidePassword: (value: boolean) => void;
-};
-
-type MyTextInputNormalProps = MyTextInputBaseProps & {
-  isPassword?: false;
-  hidePassword?: never;
-  setHidePassword?: never;
-};
-
-type MyTextInputProps = MyTextInputPasswordProps | MyTextInputNormalProps;
+import { StatusBar } from 'expo-status-bar';
 
 const Login = () => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -46,13 +19,11 @@ const Login = () => {
         <Text style={styles.subTitle}>Account Login</Text>
         <Formik
           initialValues={{ email: '', password: '' }}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          onSubmit={(values) => console.log(values)}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View style={styles.formArea}>
-              <MyTextInput
+              <CustomTextInput
                 label="Email Address"
                 icon="mail"
                 placeholder="test@test.com"
@@ -62,7 +33,7 @@ const Login = () => {
                 value={values.email}
                 keyboardType="email-address"
               />
-              <MyTextInput
+              <CustomTextInput
                 label="Password"
                 icon="key"
                 placeholder="* * * * * * * *"
@@ -75,38 +46,25 @@ const Login = () => {
                 hidePassword={hidePassword}
                 setHidePassword={setHidePassword}
               />
+              <Text style={styles.msgBox}>...</Text>
+              <CustomButton title="Login" onPress={handleSubmit} />
+              <View style={styles.line}></View>
+              <CustomButton
+                title="Sign in with Google"
+                google
+                icon={<Ionicons name={'logo-google'} size={25} color={Colors.primary} />}
+                onPress={handleSubmit}
+              />
+              <View style={styles.extraView}>
+                <Text style={styles.extraText}>Don't have an account already? </Text>
+                <View style={styles.textLink}>
+                  <Text style={styles.textLinkContent}>Signup</Text>
+                </View>
+              </View>
             </View>
           )}
         </Formik>
       </View>
-    </View>
-  );
-};
-
-const MyTextInput = ({
-  label,
-  icon,
-  isPassword,
-  hidePassword,
-  setHidePassword,
-  ...props
-}: MyTextInputProps) => {
-  return (
-    <View>
-      <View style={styles.leftIcon}>
-        <Ionicons name={icon as any} size={30} color={Colors.brand} />
-      </View>
-      <Text style={styles.inputLabel}>{label}</Text>
-      <TextInput style={styles.textInput} autoCapitalize="none" {...props} />
-      {isPassword && setHidePassword && hidePassword !== undefined && (
-        <TouchableOpacity
-          style={styles.rightIcon}
-          onPress={() => setHidePassword(!hidePassword)}
-          activeOpacity={0.7}
-        >
-          <Ionicons name={hidePassword ? 'eye-off' : 'eye'} size={30} color={Colors.darkLight} />
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
