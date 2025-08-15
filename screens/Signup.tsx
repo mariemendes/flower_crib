@@ -6,11 +6,18 @@ import CustomTextInput from '../components/CustomTextInput';
 import DatePickerInput from '../components/DatePickerInput';
 import { Formik } from 'formik';
 import { StatusBar } from 'expo-status-bar';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const Signup = () => {
+
+const Signup = ({navigation}) => {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
+    <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        extraScrollHeight={20}
+        style={styles.safeArea}
+      >
     <View style={styles.container}>
       <StatusBar style="dark" />
       <ScrollView
@@ -29,7 +36,7 @@ const Signup = () => {
             confirmPassword: '',
             dateOfBirth: '',
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {console.log(values); navigation.navigate("Welcome")}}
         >
           {({ handleChange, handleBlur, handleSubmit, values, setFieldValue }) => (
             <View style={styles.formArea}>
@@ -85,13 +92,13 @@ const Signup = () => {
                 hidePassword={hidePassword}
                 setHidePassword={setHidePassword}
               />
-              <Text style={styles.msgBox}>...</Text>
+              {/* <Text style={styles.msgBox}>...</Text> */}
               <CustomButton title="Signup" onPress={handleSubmit} />
               <View style={styles.line}></View>
               <View style={styles.extraView}>
                 <Text style={styles.extraText}>Already have an account? </Text>
-                <View style={styles.textLink}>
-                  <Text style={styles.textLinkContent}>Login</Text>
+                <View style={styles.textLink} >
+                  <Text style={styles.textLinkContent} onPress={() => navigation.navigate("Login")}>Login</Text>
                 </View>
               </View>
             </View>
@@ -99,6 +106,7 @@ const Signup = () => {
         </Formik>
       </ScrollView>
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 

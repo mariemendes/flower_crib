@@ -15,6 +15,10 @@ export const Colors = {
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white', // fundo da tela
+  },
   container: {
     flex: 1,
     paddingTop: StatusBarHeight + 40,

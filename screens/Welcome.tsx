@@ -4,7 +4,7 @@ import { styles } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 import { StatusBar } from 'expo-status-bar';
 
-const Welcome = () => {
+const Welcome = ({navigation}) => {
   return (
     <>
       <StatusBar style="light" />
@@ -17,7 +17,7 @@ const Welcome = () => {
           <View style={styles.formArea}>
           <Image style={styles.avatar} resizeMode="cover" source={require('../assets/adaptive-icon.png')} />
             <View style={styles.line}></View>
-              <CustomButton title="Logout" onPress={() => {}} />
+              <CustomButton title="Logout" onPress={() => navigation.navigate("Login")} />
             </View>
         </View>
       </View>
