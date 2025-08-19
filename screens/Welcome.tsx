@@ -4,15 +4,17 @@ import { styles } from '../components/styles';
 import CustomButton from '../components/CustomButton';
 import { StatusBar } from 'expo-status-bar';
 
-const Welcome = ({navigation}) => {
+const Welcome = ({ navigation, route }) => {
+  const { fullName, email } = route.params;
+
   return (
     <>
       <StatusBar style="light" />
       <View style={styles.innerContainer}>
         <Image style={styles.welcomeImage} source={require('../assets/adaptive-icon.png')} />
-        <Text style={[styles.pageTitle, styles.pageTitleWelcome]}>Welcome! Buddy</Text>
-        <Text style={[styles.subTitle, styles.pageSubTitleWelcome]}>Name Name</Text>
-        <Text style={[styles.subTitle, styles.pageSubTitleWelcome]}>email@teste.com</Text>
+        <Text style={[styles.pageTitle, styles.pageTitleWelcome]}>Welcome!</Text>
+        <Text style={[styles.subTitle, styles.pageSubTitleWelcome]}>{fullName}</Text>
+        <Text style={[styles.subTitle, styles.pageSubTitleWelcome]}>{email}</Text>
         <View style={styles.welcomeContainer}>
           <View style={styles.formArea}>
           <Image style={styles.avatar} resizeMode="cover" source={require('../assets/adaptive-icon.png')} />

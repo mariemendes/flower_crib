@@ -24,17 +24,21 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
   const [showPicker, setShowPicker] = useState(false);
 
   // Data inicial
-  const dateValue = value ? new Date(value) : new Date(2000, 0, 1);
+    const [internalDate, setInternalDate] = useState<Date>(
+      value ? new Date(value) : new Date(2000, 0, 1)
+    );
 
-  const handleDateChange = (_event: DateTimePickerEvent, selectedDate?: Date) => {
-    if (Platform.OS === 'android') {
-      setShowPicker(false); // fecha no Android
-    }
-    if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split('T')[0];
-      onChange(formattedDate);
-    }
-  };
+    const handleDateChange = (_event: DateTimePickerEvent, selectedDate?: Date) => {
+      if (Platform.OS === 'android') {
+        setShowPicker(false);
+      }
+      if (selectedDate) {
+        setInternalDate(selectedDate); // ✅ atualiza o estado interno
+        const formattedDate = selectedDate.toISOString().split('T')[0];
+        onChange(formattedDate); // envia para o parent
+      }
+    };
+
 
   return (
     <View>
@@ -55,7 +59,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       {/* Android: modal nativo */}
       {showPicker && Platform.OS === 'android' && (
         <DateTimePicker
-          value={dateValue}
+          value={internalDate}
           mode="date"
           display="default"
           maximumDate={new Date()}
@@ -69,7 +73,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
           <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.3)' }}>
             <View style={{ backgroundColor: 'white' }}>
               <DateTimePicker
-                value={dateValue}
+                value={internalDate}
                 mode="date"
                 display="spinner"
                 maximumDate={new Date()}

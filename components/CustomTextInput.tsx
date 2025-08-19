@@ -42,6 +42,7 @@ const CustomTextInput = ({
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
+        autoFocus={true}
         {...props}
       />
       {isPassword && setHidePassword && hidePassword !== undefined && (
