@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ActivityIndicator } from 'react-native';
 import { styles, Colors } from '../components/styles';
 import CustomButton from '../components/CustomButton';
@@ -7,7 +7,11 @@ import { Formik } from 'formik';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { loginUser } from '../services/api'
+import { loginUser } from '../services/api';
+import { saveItem, getItem } from "../services/storage";
+
+// import * as Google from 'expo-auth-session/providers/google';
+// import * as AuthSession from 'expo-auth-session';
 
 type MessageType = 'FAILED' | 'SUCCESS';
 
@@ -26,17 +30,38 @@ const Login = ({ navigation }) => {
     setMessageType(type);
   };
 
+// const redirectUri = AuthSession.makeRedirectUri({
+//   scheme: 'flower_crib', // seu scheme
+// });
+
+// const [request, response, promptAsync] = Google.useAuthRequest({
+//   clientId: '480740726184-ebo9ru6ae8vl25coj1ea9d0fdjeo4ic1.apps.googleusercontent.com',
+//   redirectUri,
+//   scopes: ['profile', 'email'],
+// });
+
+    // React.useEffect(() => {
+    //   if (response?.type === 'success') {
+    //     const { authentication } = response;
+    //     console.log('Google Token:', authentication?.accessToken);
+    //     navigation.navigate('Welcome', { user: 'GoogleUser' });
+    //   }
+    // }, [response]);
+
+
 const handleLogin = async (credentials, setSubmitting) => {
   try {
     const { success, message, user } = await loginUser(credentials);
     if (!success) {
-      handleMessage(message, 'FAILED');
+      handleMessage(message, "FAILED");
     } else {
-      handleMessage(message, 'SUCCESS');
-      navigation.navigate('Welcome', user); 
+      handleMessage(message, "SUCCESS");
+      // salva o user em armazenamento seguro
+      await saveItem("user", JSON.stringify(user));
+      navigation.navigate("Welcome", user);
     }
   } catch (err: any) {
-    handleMessage(err.message || 'An error occurred', 'FAILED');
+    handleMessage(err.message || "An error occurred", "FAILED");
   } finally {
     setSubmitting(false);
   }
@@ -58,7 +83,7 @@ const handleLogin = async (credentials, setSubmitting) => {
                 handleMessage('Please fill all the fields.');
                 setSubmitting(false);
               } else {
-                handleLogin(values, setSubmitting); // aqui dentro já cuida da navegação
+                handleLogin(values, setSubmitting);
               }
             }}
           >
@@ -98,6 +123,7 @@ const handleLogin = async (credentials, setSubmitting) => {
 
                 <View style={styles.line}></View>
 
+                {/* Botão Google Sign-In */}
                 <CustomButton
                   title="Sign in with Google"
                   google

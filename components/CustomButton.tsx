@@ -9,6 +9,7 @@ type CustomButtonProps = {
   style?: ViewStyle;
   textStyle?: TextStyle;
   icon?: React.ReactNode;
+  disabled?: boolean;
 };
 
 const CustomButton: React.FC<CustomButtonProps> = ({
